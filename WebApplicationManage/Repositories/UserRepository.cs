@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Mail;
+using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -205,36 +207,52 @@ namespace WebApplicationManage.Repositories
             }
 
             public async Task<bool> RegisterAsync(RegisterDto dto)
-            {
-                try
                 {
-                    var exist = await _context.Users.AnyAsync(x => x.Email == dto.Email);
-
-                    if (exist)
+                    try
                     {
-                        throw new ApplicationException("Email is exist.");
+                        var exist = await _context.Users.AnyAsync(x => x.Email == dto.Email);
+
+                        if (exist)
+                        {
+                            throw new ApplicationException("Email is exist.");
+                        }
+
+                        var user = _mapper.Map<User>(dto);
+
+                        // Thêm user vào database
+                        _context.Users.Add(user);
+                        await _context.SaveChangesAsync();
+
+                        // Gửi email thông báo đăng ký thành công
+                        string toAddress = dto.Email; // Địa chỉ email của người dùng đăng ký
+                        string subject = "Đăng ký thành công";
+                        string body = "Chào mừng bạn đến với trang web của chúng tôi!";
+
+                        // Cấu hình SmtpClient
+                        var smtpClient = new SmtpClient("smtp.gmail.com", 587)
+                        {
+                            Credentials = new NetworkCredential("caothutreocay@gmail.com", "yourPassword"),
+                            EnableSsl = true
+                        };
+
+                        // Tạo message và gửi
+                        var message = new MailMessage("caothutreocay@gmail.com", toAddress, subject, body);
+                        await smtpClient.SendMailAsync(message);
+
+                        return true;
                     }
-
-                    var user = _mapper.Map<User>(dto);
-
-                    _context.Users.Add(user);
-
-                    await _context.SaveChangesAsync();
-
-                    return true;
-
-                }
-                catch (ApplicationException ex)
-                {
-                    if (ex.InnerException != null)
+                    catch (ApplicationException ex)
                     {
-                        throw new ApplicationException(ex.InnerException.Message);
+                        if (ex.InnerException != null)
+                        {
+                            throw new ApplicationException(ex.InnerException.Message);
+                        }
+                        throw new ApplicationException(ex.Message);
                     }
-                    throw new ApplicationException(ex.Message);
                 }
-            }
 
-            private async Task<TokenDto> GenerateToken(User user)
+
+    private async Task<TokenDto> GenerateToken(User user)
             {
                 var authClaims = new List<Claim>
             {
