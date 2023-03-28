@@ -28,7 +28,7 @@ namespace WebApplicationManage.Repositories
                 try
                 {
                     var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == dto.Email);
-                    if (user == null || BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
+                    if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
                     {
                         throw new ApplicationException("Email or Password is not correct.");
                     }
