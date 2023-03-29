@@ -221,7 +221,6 @@ namespace WebApplicationManage.Repositories
 
                         // Thêm user vào database
                         _context.Users.Add(user);
-                        await _context.SaveChangesAsync();
 
                         // Gửi email thông báo đăng ký thành công
                         string toAddress = dto.Email; // Địa chỉ email của người dùng đăng ký
@@ -231,13 +230,14 @@ namespace WebApplicationManage.Repositories
                         // Cấu hình SmtpClient
                         var smtpClient = new SmtpClient("smtp.gmail.com", 587)
                         {
-                            Credentials = new NetworkCredential("caothutreocay@gmail.com", "yourPassword"),
+                            Credentials = new NetworkCredential(_configuration["Mail:UserName"], _configuration["Mail:PassWord"]),
                             EnableSsl = true
                         };
 
                         // Tạo message và gửi
-                        var message = new MailMessage("caothutreocay@gmail.com", toAddress, subject, body);
+                        var message = new MailMessage(_configuration["Mail:UserName"], toAddress, subject, body);
                         await smtpClient.SendMailAsync(message);
+                        await _context.SaveChangesAsync();
 
                         return true;
                     }
