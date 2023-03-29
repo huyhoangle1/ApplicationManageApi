@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using WebApplicationManage.Data;
+using WebApplicationManage.models.Producer;
 using WebApplicationManage.models.User;
 
 namespace WebApplicationManage.Helpers
@@ -8,6 +9,11 @@ namespace WebApplicationManage.Helpers
     {
         public ApplicationMapper()
         {
+          CreateMap<ProducerDto, Producter>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+             .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Code))
+             .ForMember(dest => dest.Keyword, opt => opt.MapFrom(src => src.Keyword))
+             .ForMember(dest => dest.Created , opt => opt.MapFrom(src => DateTime.Now)).ReverseMap();
 
             CreateMap<RegisterDto, User>()
                .ForMember(
