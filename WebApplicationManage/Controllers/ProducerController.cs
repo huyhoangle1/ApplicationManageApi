@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApplicationManage.Data;
 using WebApplicationManage.models.Producer;
 using WebApplicationManage.models.User;
 using WebApplicationManage.Repositories;
@@ -71,10 +72,13 @@ namespace WebApplicationManage.Controllers
             return Ok("Deleted.");
         }
 
+        [Authorize]
         [HttpPost("addProducer")]
         public async Task<IActionResult> AddProducer(ProducerDto dto)
         {
-            var result = await _repo.AddProducer(dto);
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "userId")?.Value;
+            int producerId = int.Parse(userId);
+            var result = await _repo.AddProducer(dto, producerId);
 
             if (result)
             {

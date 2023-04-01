@@ -22,7 +22,7 @@ namespace WebApplicationManage.Repositories
             _configuration = configuration;
         }
 
-        public async Task<bool> AddProducer(ProducerDto dto)
+        public async Task<bool> AddProducer(ProducerDto dto, int userId)
         {
             var check = await _context.Producers.AnyAsync(x => x.Name == dto.Name);
             if (check)
@@ -30,6 +30,7 @@ namespace WebApplicationManage.Repositories
                 throw new ApplicationException("Producer is exsit!!");
             }
             var data = _mapper.Map<Producer>(dto);
+            data.UserId = userId; // Thiết lập giá trị cho trường UserId
             _context.Producers.Add(data);
             await _context.SaveChangesAsync();
             return true;

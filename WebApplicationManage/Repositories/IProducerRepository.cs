@@ -6,7 +6,7 @@ namespace WebApplicationManage.Repositories
 {
     public interface IProducerRepository
     {
-        public Task<Boolean> AddProducer(ProducerDto dto);
+        public Task<Boolean> AddProducer(ProducerDto dto, int userId);
         public Task<List<ProducerDto>> GetProducersAsync();
         public Task<ProducerDto> GetProducerById(int id);
         public Task<Boolean> UpdateProducerAsync(int id, ProducerDto producer);

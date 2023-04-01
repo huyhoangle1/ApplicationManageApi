@@ -24,7 +24,5 @@ namespace WebApplicationManage.models.Producer
 
         public int Status { get; set; } 
 
-        public int UserId { get; set; }
-
     }
 }
