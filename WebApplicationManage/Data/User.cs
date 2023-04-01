@@ -19,5 +19,8 @@ namespace WebApplicationManage.Data
         public string? Password { get; set; }
 
         public ICollection<Token> Tokens { get; set; }
+
+        public ICollection<Producer> Producers { get; set; }
+
     }
 }

@@ -1,9 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WebApplicationManage.Data
 {
-    public class Producter
+    public class Producer
     {
         [Key]
         public int Id { get; set; }
@@ -29,5 +28,11 @@ namespace WebApplicationManage.Data
 
         [Required]
         public int Status { get; set; }
+
+        public int UserId { get; set; }
+
+        public User? User { get; set; }
+
+        public ICollection<Product> Products { get; set; }
     }
 }

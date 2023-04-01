@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplicationManage.Data;
 
@@ -11,9 +12,11 @@ using WebApplicationManage.Data;
 namespace WebApplicationManage.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230331165953_updateTable")]
+    partial class updateTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -214,12 +217,7 @@ namespace WebApplicationManage.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(1);
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Producer", (string)null);
                 });
@@ -387,17 +385,6 @@ namespace WebApplicationManage.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("WebApplicationManage.Data.Producer", b =>
-                {
-                    b.HasOne("WebApplicationManage.Data.User", "User")
-                        .WithMany("Producers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("WebApplicationManage.Data.Product", b =>
                 {
                     b.HasOne("WebApplicationManage.Data.Category", "Category")
@@ -455,8 +442,6 @@ namespace WebApplicationManage.Migrations
 
             modelBuilder.Entity("WebApplicationManage.Data.User", b =>
                 {
-                    b.Navigation("Producers");
-
                     b.Navigation("Tokens");
                 });
 #pragma warning restore 612, 618
