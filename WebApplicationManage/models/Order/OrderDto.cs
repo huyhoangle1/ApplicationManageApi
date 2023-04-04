@@ -21,5 +21,7 @@ namespace WebApplicationManage.models.Order
 
         public DateTime Created { get; set; }
 
+        public List<OrderProductDto> Products { get; set; }
+
     }
 }

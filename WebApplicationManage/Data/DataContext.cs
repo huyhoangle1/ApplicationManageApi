@@ -89,21 +89,18 @@ namespace WebApplicationManage.Data
                     .HasMaxLength(50);
                 e.Property(o => o.Customerid)
                     .IsRequired();
-                e.Property(o => o.Orderdate)
-                    .IsRequired();
+                e.Property(o => o.Orderdate);
                 e.Property(o => o.FullName)
                     .HasMaxLength(100);
                 e.Property(o => o.Phone)
                     .HasMaxLength(20);
                 e.Property(o => o.Money)
                     .IsRequired();
-                e.Property(o => o.Price_ship)
-                    .IsRequired();
+                e.Property(o => o.Price_ship);
                 e.Property(o => o.Coupon);
                 e.Property(o => o.Address)
                     .HasMaxLength(200);
-                e.Property(o => o.Created)
-                    .IsRequired();
+                e.Property(o => o.Created);
                 e.HasOne(o => o.Customer)
                     .WithMany(c => c.Orders)
                     .HasForeignKey(o => o.Customerid);

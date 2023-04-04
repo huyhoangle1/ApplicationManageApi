@@ -13,7 +13,6 @@ namespace WebApplicationManage.Data
 
         [Required]
         public int Customerid { get; set; }
-        [Required]
         public DateTime Orderdate { get; set; }
 
         public string? FullName { get; set; }

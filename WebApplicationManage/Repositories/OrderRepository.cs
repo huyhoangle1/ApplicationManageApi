@@ -38,7 +38,29 @@ namespace WebApplicationManage.Repositories
             data.OrderCode = RandomCode();
             _context.Orders.Add(data);
             await _context.SaveChangesAsync();
+            // save orderDetail
+
+           
+            foreach (var product in dto.Products)
+            {
+                var orderDetail = new OrderDetail
+                {
+                    OrderId = data.Id,
+                    ProductId = product.ProductId,
+                    Count = product.Count,
+                    Price = (float)GetProductPrice(product.ProductId) * product.Count,
+                    Status = true
+                };
+                _context.OrderDetails.Add(orderDetail);
+            }
+            await _context.SaveChangesAsync();
             return true;
+        }
+
+        private decimal GetProductPrice(int productId)
+        {
+            var product = _context.Products.FirstOrDefault(x => x.Id == productId);
+            return product?.Price ?? 0;
         }
 
         private string RandomCode()
