@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WebApplicationManage.Data;
 
 namespace WebApplicationManage.models.User
 {
@@ -9,6 +10,9 @@ namespace WebApplicationManage.models.User
         [Required]
         [EmailAddress]
         public string? Email { get; set; }
+        [Required]
+
+        public Role? Role { get; set; }
         [Required]
         public string? Password { get; set; }
     }

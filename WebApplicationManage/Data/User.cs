@@ -2,6 +2,10 @@
 
 namespace WebApplicationManage.Data
 {
+    public enum Role
+    {
+        admin = 0, personnel = 1
+    }
     public class User
     {
         public User()
@@ -17,6 +21,14 @@ namespace WebApplicationManage.Data
         public string? Email { get; set; }
         [Required]
         public string? Password { get; set; }
+
+        public Role? Role { get; set; }
+
+        public string? Image { get; set; }
+
+        public string? Address { get; set; }
+
+        public DateTime? Created { get; set; }
 
         public ICollection<Token> Tokens { get; set; }
 

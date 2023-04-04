@@ -14,13 +14,14 @@ namespace WebApplicationManage.Helpers
         public ApplicationMapper()
         {
             //producer
-          CreateMap<ProducerDto, Producer>()
-            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-            .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Code))
-            .ForMember(dest => dest.Keyword, opt => opt.MapFrom(src => src.Keyword))
+            CreateMap<ProducerDto, Producer>()
+              .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+              .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Code))
+              .ForMember(dest => dest.Keyword, opt => opt.MapFrom(src => src.Keyword))
             .ForMember(dest => dest.Created , opt => opt.MapFrom(src => DateTime.Now)).ReverseMap();
             //category
-            CreateMap<CategoryDto, Category>().ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now)).ReverseMap();
+            CreateMap<CategoryDto, Category>()
+            .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now)).ReverseMap();
 
             //product
             CreateMap<ProductDto, Product>()
@@ -42,6 +43,9 @@ namespace WebApplicationManage.Helpers
             ).ForMember(
                 dest => dest.Password,
                 opt => opt.MapFrom(src => BCrypt.Net.BCrypt.HashPassword(src.Password))
+                ).ForMember(
+                dest => dest.Role,
+                opt => opt.MapFrom(src =>src.Role)
                 );
 
             CreateMap<LoginDto, User>()
@@ -81,10 +85,11 @@ namespace WebApplicationManage.Helpers
                 opt => opt.MapFrom(src => src.Email)
             ).ForMember(
                 dest => dest.Password,
-                opt => opt.MapFrom(src => BCrypt.Net.BCrypt.HashPassword(src.Password))
-                ).ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now)).ReverseMap();
+                opt => opt.MapFrom(src => BCrypt.Net.BCrypt.HashPassword(src.Password)))
+            .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now)).ReverseMap();
 
-                CreateMap<OrderDto, Customer>()
+
+            CreateMap<OrderDto, Customer>()
             .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FullName))
             .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
             .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Phone))

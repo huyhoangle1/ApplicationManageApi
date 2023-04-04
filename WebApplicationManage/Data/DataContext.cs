@@ -29,6 +29,7 @@ namespace WebApplicationManage.Data
             {
                 e.ToTable("users");
                 e.HasIndex(x => x.Email).IsUnique();
+                e.Property(e => e.Created).HasDefaultValueSql("GETDATE()");
             });
 
             modelBuilder.Entity<Token>(e =>
@@ -54,7 +55,6 @@ namespace WebApplicationManage.Data
                 e.Property(c => c.Password);
                 e.Property(c => c.Address).HasMaxLength(150);
                 e.Property(c => c.Phone).HasMaxLength(11);
-                e.Property(c => c.Created).IsRequired();
                 e.HasMany(e => e.Orders).WithOne(e => e.Customer).HasForeignKey(e => e.Customerid);
             });
 
@@ -100,7 +100,6 @@ namespace WebApplicationManage.Data
                 e.Property(o => o.Coupon);
                 e.Property(o => o.Address)
                     .HasMaxLength(200);
-                e.Property(o => o.Created);
                 e.HasOne(o => o.Customer)
                     .WithMany(c => c.Orders)
                     .HasForeignKey(o => o.Customerid);
@@ -122,7 +121,6 @@ namespace WebApplicationManage.Data
                 e.Property(p => p.Price).IsRequired();
                 e.Property(p => p.Sale).IsRequired();
                 e.Property(p => p.Price_sale).IsRequired();
-                e.Property(p => p.Created).IsRequired();
                 e.Property(p => p.Modified).IsRequired();
                 e.HasOne(p => p.producer).WithMany(p => p.Products).HasForeignKey(p => p.Producer);
                 e.HasOne(e => e.Category).WithMany(e => e.Products).HasForeignKey(e => e.CatId);
@@ -135,7 +133,6 @@ namespace WebApplicationManage.Data
                 entity.Property(e => e.Name).IsRequired().HasMaxLength(255); 
                 entity.Property(e => e.Code).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Keyword).IsRequired();
-                entity.Property(e => e.Created).IsRequired();
                 entity.Property(e => e.Modified).IsRequired(); 
                 entity.Property(e => e.Trash).IsRequired().HasDefaultValue(1); 
                 entity.Property(e => e.Status).IsRequired().HasDefaultValue(1);
