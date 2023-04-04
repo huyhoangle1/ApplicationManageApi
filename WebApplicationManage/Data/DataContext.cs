@@ -43,7 +43,6 @@ namespace WebApplicationManage.Data
             {
                 e.ToTable("Category");
                 e.HasKey(c => c.Id);
-                e.HasMany(e => e.Products).WithOne(e => e.Category).HasForeignKey(e => e.CatId);
             });
 
             modelBuilder.Entity<Customer>(e =>
@@ -116,8 +115,8 @@ namespace WebApplicationManage.Data
                 e.ToTable("product");
                 e.HasKey(p => p.Id);
                 e.Property(p => p.Name).IsRequired().HasMaxLength(50);
-                e.Property(p => p.Avatar).HasColumnType("image");
-                e.Property(p => p.Image).HasColumnType("image");
+                e.Property(p => p.Avatar);
+                e.Property(p => p.Image);
                 e.Property(p => p.SortDesc).HasMaxLength(200);
                 e.Property(p => p.Detail).HasMaxLength(1000);
                 e.Property(p => p.Producer).IsRequired();
@@ -129,6 +128,7 @@ namespace WebApplicationManage.Data
                 e.Property(p => p.Created).IsRequired();
                 e.Property(p => p.Modified).IsRequired();
                 e.HasOne(p => p.producer).WithMany(p => p.Products).HasForeignKey(p => p.Producer);
+                e.HasOne(e => e.Category).WithMany(e => e.Products).HasForeignKey(e => e.CatId);
             });
 
             modelBuilder.Entity<Producer>(entity =>

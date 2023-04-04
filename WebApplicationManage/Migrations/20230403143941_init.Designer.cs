@@ -12,8 +12,8 @@ using WebApplicationManage.Data;
 namespace WebApplicationManage.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230401062628_Fix")]
-    partial class Fix
+    [Migration("20230403143941_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -235,9 +235,9 @@ namespace WebApplicationManage.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<byte[]>("Avatar")
+                    b.Property<string>("Avatar")
                         .IsRequired()
-                        .HasColumnType("image");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CatId")
                         .HasColumnType("int");
@@ -250,9 +250,9 @@ namespace WebApplicationManage.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<byte[]>("Image")
+                    b.Property<string>("Image")
                         .IsRequired()
-                        .HasColumnType("image");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Modified")
                         .HasColumnType("datetime2");

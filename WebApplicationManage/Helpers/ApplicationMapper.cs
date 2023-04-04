@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using WebApplicationManage.Data;
+using WebApplicationManage.models.Category;
 using WebApplicationManage.models.Customer;
+using WebApplicationManage.models.Order;
 using WebApplicationManage.models.Producer;
+using WebApplicationManage.models.Product;
 using WebApplicationManage.models.User;
 
 namespace WebApplicationManage.Helpers
@@ -16,6 +19,17 @@ namespace WebApplicationManage.Helpers
             .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Code))
             .ForMember(dest => dest.Keyword, opt => opt.MapFrom(src => src.Keyword))
             .ForMember(dest => dest.Created , opt => opt.MapFrom(src => DateTime.Now)).ReverseMap();
+            //category
+            CreateMap<CategoryDto, Category>().ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now)).ReverseMap();
+
+            //product
+            CreateMap<ProductDto, Product>()
+            .ForMember(dest => dest.producer, opt => opt.Ignore())
+            .ForMember(dest => dest.Category, opt => opt.Ignore())
+            .ForMember(dest => dest.OrderDetails, opt => opt.Ignore());
+
+            //orderDto 
+            CreateMap<OrderDto, Order>().ReverseMap();
 
             //user
             CreateMap<RegisterDto, User>()

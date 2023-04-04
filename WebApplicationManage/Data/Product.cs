@@ -12,10 +12,10 @@ namespace WebApplicationManage.Data
 
         public string Name { get; set; }
 
-        public byte[] Avatar { get; set; }
+        public string Avatar { get; set; }
 
         [MaxLength]
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
 
         public string SortDesc { get; set; }
 

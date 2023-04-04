@@ -232,9 +232,9 @@ namespace WebApplicationManage.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<byte[]>("Avatar")
+                    b.Property<string>("Avatar")
                         .IsRequired()
-                        .HasColumnType("image");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CatId")
                         .HasColumnType("int");
@@ -247,9 +247,9 @@ namespace WebApplicationManage.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<byte[]>("Image")
+                    b.Property<string>("Image")
                         .IsRequired()
-                        .HasColumnType("image");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Modified")
                         .HasColumnType("datetime2");

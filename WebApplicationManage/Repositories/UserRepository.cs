@@ -7,7 +7,6 @@ using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using WebApplicationManage.Controllers;
 using WebApplicationManage.Data;
 using WebApplicationManage.models.Token;
 using WebApplicationManage.models.User;
