@@ -9,9 +9,10 @@ namespace WebApplicationManage.models.Order
         public int Customerid { get; set; }
         public DateTime Orderdate { get; set; }
 
-        public string? Fullname { get; set; }
+        public string? FullName { get; set; }
 
-        public int? Phone { get; set; }
+        public string? Email { get; set; }
+        public string? Phone { get; set; }
 
         public int? Money { get; set; }
         public int? Price_ship { get; set; }

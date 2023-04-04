@@ -51,7 +51,7 @@ namespace WebApplicationManage.Data
                 e.HasKey(c => c.Id);
                 e.Property(c => c.FullName).HasMaxLength(50);
                 e.Property(c => c.Email).IsRequired();
-                e.Property(c => c.Password).IsRequired();
+                e.Property(c => c.Password);
                 e.Property(c => c.Address).HasMaxLength(150);
                 e.Property(c => c.Phone).HasMaxLength(11);
                 e.Property(c => c.Created).IsRequired();
@@ -91,7 +91,7 @@ namespace WebApplicationManage.Data
                     .IsRequired();
                 e.Property(o => o.Orderdate)
                     .IsRequired();
-                e.Property(o => o.Fullname)
+                e.Property(o => o.FullName)
                     .HasMaxLength(100);
                 e.Property(o => o.Phone)
                     .HasMaxLength(20);

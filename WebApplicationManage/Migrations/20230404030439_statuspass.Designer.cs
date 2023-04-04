@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplicationManage.Data;
 
@@ -11,9 +12,11 @@ using WebApplicationManage.Data;
 namespace WebApplicationManage.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230404030439_statuspass")]
+    partial class statuspass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,11 +80,12 @@ namespace WebApplicationManage.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
+                    b.Property<int?>("Phone")
                         .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -109,7 +113,7 @@ namespace WebApplicationManage.Migrations
                     b.Property<int>("Customerid")
                         .HasColumnType("int");
 
-                    b.Property<string>("FullName")
+                    b.Property<string>("Fullname")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -125,9 +129,9 @@ namespace WebApplicationManage.Migrations
                     b.Property<DateTime>("Orderdate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Phone")
+                    b.Property<int?>("Phone")
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("int");
 
                     b.Property<int?>("Price_ship")
                         .IsRequired()

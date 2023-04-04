@@ -8,7 +8,8 @@ namespace WebApplicationManage.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly DataContext _context;
+        
+        readonly DataContext _context;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
         public ProductRepository (DataContext context, IMapper mapper, IConfiguration configuration)

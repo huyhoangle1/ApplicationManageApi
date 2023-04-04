@@ -100,7 +100,8 @@ namespace WebApplicationManage.Repositories
 
             }
 
-            private string GenerateRefreshToken()
+            
+        string GenerateRefreshToken()
             {
                 var randomNumber = new Byte[64];
 

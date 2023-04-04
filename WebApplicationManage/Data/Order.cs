@@ -9,16 +9,16 @@ namespace WebApplicationManage.Data
 
         [Required]
         [MaxLength(50)]
-        public int? OrderCode { get; set; }
+        public string? OrderCode { get; set; }
 
         [Required]
         public int Customerid { get; set; }
         [Required]
         public DateTime Orderdate { get; set; }
 
-        public string? Fullname { get; set; }
+        public string? FullName { get; set; }
 
-        public int? Phone { get; set; }
+        public string? Phone { get; set; }
 
         public int? Money { get; set; }
         public int? Price_ship { get; set; }

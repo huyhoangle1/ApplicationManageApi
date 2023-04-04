@@ -29,7 +29,7 @@ namespace WebApplicationManage.Helpers
             .ForMember(dest => dest.OrderDetails, opt => opt.Ignore());
 
             //orderDto 
-            CreateMap<OrderDto, Order>().ReverseMap();
+               CreateMap<Order, OrderDto>().ForMember(dest => dest.Email, opt => opt.Ignore()).ReverseMap();
 
             //user
             CreateMap<RegisterDto, User>()
@@ -82,7 +82,13 @@ namespace WebApplicationManage.Helpers
             ).ForMember(
                 dest => dest.Password,
                 opt => opt.MapFrom(src => BCrypt.Net.BCrypt.HashPassword(src.Password))
-                ).ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now)).ReverseMap(); ;
+                ).ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now)).ReverseMap();
+
+                CreateMap<OrderDto, Customer>()
+            .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FullName))
+            .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+            .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Phone))
+            .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now)).ReverseMap();
 
             CreateMap<LoginCustomerDto, Customer>()
                 .ForMember(
