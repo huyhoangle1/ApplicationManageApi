@@ -29,6 +29,8 @@ namespace WebApplicationManage.Data
 
         public Customer Customer { get; set; }
 
+        public int? Status { get; set; }
+
         public ICollection<OrderDetail> OrderDetails { get; set; }
         public Order()
         {

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebApplicationManage.Data;
 using WebApplicationManage.models.Token;
 using WebApplicationManage.models.User;
 using WebApplicationManage.Repositories;
@@ -90,6 +91,7 @@ namespace WebApplicationManage.Controllers
         }
 
         [HttpPost("register")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Register(RegisterDto dto)
         {
             var result = await _repo.RegisterAsync(dto);

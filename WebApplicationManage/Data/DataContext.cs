@@ -98,6 +98,7 @@ namespace WebApplicationManage.Data
                     .IsRequired();
                 e.Property(o => o.Price_ship);
                 e.Property(o => o.Coupon);
+                e.Property(e => e.Status).HasDefaultValue(1);
                 e.Property(o => o.Address)
                     .HasMaxLength(200);
                 e.HasOne(o => o.Customer)
@@ -121,7 +122,7 @@ namespace WebApplicationManage.Data
                 e.Property(p => p.Price).IsRequired();
                 e.Property(p => p.Sale).IsRequired();
                 e.Property(p => p.Price_sale).IsRequired();
-                e.Property(p => p.Modified).IsRequired();
+                e.Property(p => p.Modified);
                 e.HasOne(p => p.producer).WithMany(p => p.Products).HasForeignKey(p => p.Producer);
                 e.HasOne(e => e.Category).WithMany(e => e.Products).HasForeignKey(e => e.CatId);
             });
