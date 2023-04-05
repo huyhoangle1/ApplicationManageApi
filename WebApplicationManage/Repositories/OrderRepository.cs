@@ -38,9 +38,10 @@ namespace WebApplicationManage.Repositories
             data.OrderCode = RandomCode();
             data.Price_ship = 30000;
             _context.Orders.Add(data);
+
             await _context.SaveChangesAsync();
             // save orderDetail
-            float totalAmount = 0;
+            int totalAmount = 0;
 
             foreach (var product in dto.Products)
             {
@@ -54,6 +55,10 @@ namespace WebApplicationManage.Repositories
                     Status = true
                 };
                 var a = await _context.Products.FindAsync(productId);
+                if (a != null)
+                {
+                    totalAmount += (int)a.Price * product.Count;
+                }
                 if (product.Count > (int)a.Number)
                 {
                     throw new ApplicationException("Quantity not enough");
@@ -65,6 +70,9 @@ namespace WebApplicationManage.Repositories
 
                 _context.OrderDetails.Add(orderDetail);
             }
+
+            data.Money = totalAmount - 30000;
+            _context.Orders.Update(data);
             await _context.SaveChangesAsync();
             return true;
         }
