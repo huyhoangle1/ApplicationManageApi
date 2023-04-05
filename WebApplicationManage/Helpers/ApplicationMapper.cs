@@ -24,13 +24,13 @@ namespace WebApplicationManage.Helpers
             .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now)).ReverseMap();
 
             //product
-            CreateMap<ProductDto, Product>()
-            .ForMember(dest => dest.producer, opt => opt.Ignore())
-            .ForMember(dest => dest.Category, opt => opt.Ignore())
-            .ForMember(dest => dest.OrderDetails, opt => opt.Ignore());
+            CreateMap<ProductDto, Product>().ReverseMap();
+            /* .ForMember(dest => dest.producer, opt => opt.Ignore())
+             .ForMember(dest => dest.Category, opt => opt.Ignore())
+             .ForMember(dest => dest.OrderDetails, opt => opt.Ignore());*/
 
             //orderDto 
-               CreateMap<Order, OrderDto>().ForMember(dest => dest.Email, opt => opt.Ignore()).ReverseMap();
+            CreateMap<Order, OrderDto>().ForMember(dest => dest.Email, opt => opt.Ignore()).ReverseMap();
 
             //user
             CreateMap<RegisterDto, User>()
@@ -106,3 +106,4 @@ namespace WebApplicationManage.Helpers
         }
     }
 }
+

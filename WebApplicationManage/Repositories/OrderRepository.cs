@@ -36,21 +36,33 @@ namespace WebApplicationManage.Repositories
             var data = _mapper.Map<Order>(dto);
             data.Customerid = (int)id;
             data.OrderCode = RandomCode();
+            data.Price_ship = 30000;
             _context.Orders.Add(data);
             await _context.SaveChangesAsync();
             // save orderDetail
+            float totalAmount = 0;
 
-           
             foreach (var product in dto.Products)
             {
+                var productId = product.ProductId;
                 var orderDetail = new OrderDetail
                 {
                     OrderId = data.Id,
-                    ProductId = product.ProductId,
+                    ProductId = productId,
                     Count = product.Count,
                     Price = (float)GetProductPrice(product.ProductId) * product.Count,
                     Status = true
                 };
+                var a = await _context.Products.FindAsync(productId);
+                if (product.Count > (int)a.Number)
+                {
+                    throw new ApplicationException("Quantity not enough");
+                }
+                a.Number -= product.Count;
+                a.Number_buy += product.Count;
+
+                _context.Products.Update(a);
+
                 _context.OrderDetails.Add(orderDetail);
             }
             await _context.SaveChangesAsync();

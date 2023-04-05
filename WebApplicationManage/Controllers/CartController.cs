@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplicationManage.models.Category;
@@ -19,6 +20,7 @@ namespace WebApplicationManage.Controllers
             _repo = repo;
             _mapper = mapper;
         }
+        [AllowAnonymous]
         [HttpPost("addCategory")]
         public async Task<IActionResult> AddProducer(OrderDto dto)
         {
