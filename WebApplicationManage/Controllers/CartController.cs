@@ -20,6 +20,15 @@ namespace WebApplicationManage.Controllers
             _repo = repo;
             _mapper = mapper;
         }
+
+        [HttpGet("orderList")]
+        public async Task<IActionResult> GetAllOrderLists()
+        {
+            var data = await _repo.GetAllOrder();
+
+            return Ok(data);
+        }
+
         [AllowAnonymous]
         [HttpPost("addCategory")]
         public async Task<IActionResult> AddProducer(OrderDto dto)

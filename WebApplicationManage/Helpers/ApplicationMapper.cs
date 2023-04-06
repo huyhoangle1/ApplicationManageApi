@@ -18,19 +18,31 @@ namespace WebApplicationManage.Helpers
               .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
               .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Code))
               .ForMember(dest => dest.Keyword, opt => opt.MapFrom(src => src.Keyword))
-            .ForMember(dest => dest.Created , opt => opt.MapFrom(src => DateTime.Now)).ReverseMap();
+            .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now)).ReverseMap();
             //category
             CreateMap<CategoryDto, Category>()
             .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now)).ReverseMap();
 
             //product
             CreateMap<ProductDto, Product>().ReverseMap();
-            /* .ForMember(dest => dest.producer, opt => opt.Ignore())
-             .ForMember(dest => dest.Category, opt => opt.Ignore())
-             .ForMember(dest => dest.OrderDetails, opt => opt.Ignore());*/
+
 
             //orderDto 
-            CreateMap<Order, OrderDto>().ForMember(dest => dest.Email, opt => opt.Ignore()).ReverseMap();
+            CreateMap<OrderDto, Order>();
+
+            CreateMap<Order, OrderAll >()
+                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address))
+                .ForMember(dest => dest.Orderdate, opt => opt.MapFrom(src => src.Orderdate))
+                .ForMember(dest => dest.OrderCode, opt => opt.MapFrom(src => src.OrderCode))
+                .ForMember(dest => dest.Customerid, opt => opt.MapFrom(src => src.Customerid))
+                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FullName))
+                .ForMember(dest => dest.Coupon, opt => opt.MapFrom(src => src.Coupon))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
+                .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Phone))
+                .ForMember(dest => dest.Price_ship, opt => opt.MapFrom(src => src.Price_ship))
+                .ForMember(dest => dest.Money, opt => opt.MapFrom(src => src.Money));
+
 
             //user
             CreateMap<RegisterDto, User>()

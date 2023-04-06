@@ -8,6 +8,7 @@ using WebApplicationManage.models.Order;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using System;
+using WebApplicationManage.models.Category;
 
 namespace WebApplicationManage.Repositories
 {
@@ -75,6 +76,12 @@ namespace WebApplicationManage.Repositories
             _context.Orders.Update(data);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<List<OrderAll>> GetAllOrder()
+        {
+            var data = await _context.Orders.ToListAsync();
+            return _mapper.Map<List<OrderAll>>(data);
         }
 
         private decimal GetProductPrice(int productId)
