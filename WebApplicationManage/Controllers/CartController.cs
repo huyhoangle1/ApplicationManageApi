@@ -29,6 +29,20 @@ namespace WebApplicationManage.Controllers
             return Ok(data);
         }
 
+        [HttpGet("Order/{id}")]
+
+        public async Task<IActionResult> GetOrderByCus(int id)
+        {
+            var data = await _repo.GetOrderByCustomerId(id);
+
+            if (data == null)
+            {
+                return BadRequest("Order is not exist.");
+            }
+
+            return Ok(data);
+        }
+
         [AllowAnonymous]
         [HttpPost("addCategory")]
         public async Task<IActionResult> AddProducer(OrderDto dto)

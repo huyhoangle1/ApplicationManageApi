@@ -5,7 +5,6 @@ namespace WebApplicationManage.models.Order
 {
     public class OrderAll
     {
-        public int Id { get; set; }
 
         public string? OrderCode { get; set; }
 

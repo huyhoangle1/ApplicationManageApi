@@ -44,6 +44,7 @@ namespace WebApplicationManage.Data
             {
                 e.ToTable("Category");
                 e.HasKey(c => c.Id);
+                e.Property(e => e.Created).HasDefaultValueSql("GETDATE()");
             });
 
             modelBuilder.Entity<Customer>(e =>
@@ -56,6 +57,7 @@ namespace WebApplicationManage.Data
                 e.Property(c => c.Address).HasMaxLength(150);
                 e.Property(c => c.Phone).HasMaxLength(11);
                 e.HasMany(e => e.Orders).WithOne(e => e.Customer).HasForeignKey(e => e.Customerid);
+                e.Property(e => e.Created).HasDefaultValueSql("GETDATE()");
             });
 
             modelBuilder.Entity<OrderDetail>(e => {
@@ -89,7 +91,8 @@ namespace WebApplicationManage.Data
                     .HasMaxLength(50);
                 e.Property(o => o.Customerid)
                     .IsRequired();
-                e.Property(o => o.Orderdate);
+                e.Property(e => e.Created).HasDefaultValueSql("GETDATE()");
+                e.Property(e => e.Orderdate).HasDefaultValueSql("GETDATE()");
                 e.Property(o => o.FullName)
                     .HasMaxLength(100);
                 e.Property(o => o.Phone)

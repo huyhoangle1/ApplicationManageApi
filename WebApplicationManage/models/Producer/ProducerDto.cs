@@ -4,7 +4,6 @@ namespace WebApplicationManage.models.Producer
 {
     public class ProducerDto
     {
-        public int Id { get; set; }
 
         [Required]
         public string Name { get; set; }

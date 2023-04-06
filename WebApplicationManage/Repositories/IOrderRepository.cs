@@ -9,5 +9,7 @@ namespace WebApplicationManage.Repositories
         public Task<Boolean> AddOrder(OrderDto dto);
 
         public Task<List<OrderAll>> GetAllOrder();
+
+        public Task<List<OrderAll>> GetOrderByCustomerId(int id);
     }
 }

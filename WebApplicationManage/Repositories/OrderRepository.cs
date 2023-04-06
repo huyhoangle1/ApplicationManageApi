@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using System;
 using WebApplicationManage.models.Category;
+using WebApplicationManage.models.Customer;
 
 namespace WebApplicationManage.Repositories
 {
@@ -76,6 +77,17 @@ namespace WebApplicationManage.Repositories
             _context.Orders.Update(data);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<List<OrderAll>> GetOrderByCustomerId(int id)
+        {
+            var orders = await _context.Orders.Where(x => x.Customerid == id).ToListAsync();
+
+            if (orders == null)
+            {
+                throw new ApplicationException("Order Not exsit!!!");
+            }
+            return _mapper.Map<List<OrderAll>>(orders);
         }
 
         public async Task<List<OrderAll>> GetAllOrder()
