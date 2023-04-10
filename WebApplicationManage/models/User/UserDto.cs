@@ -1,4 +1,6 @@
-﻿namespace WebApplicationManage.models.User
+﻿using WebApplicationManage.Data;
+
+namespace WebApplicationManage.models.User
 {
     public class UserDto
     {
@@ -6,6 +8,6 @@
         public string? Name { get; set; }
         public string? Email { get; set; }
 
-
+        public Role? Role { get; set; }
     }
 }
